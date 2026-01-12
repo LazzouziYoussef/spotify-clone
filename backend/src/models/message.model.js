@@ -1,6 +1,6 @@
-import Mongoose from "Mongoosee";
+import mongoose from "mongoose";
 
-const messageSchema = new Mongoose.Schema(
+const messageSchema = new mongoose.Schema(
   {
     senderId: { type: String, required: true },
     receiverId: { type: String, required: true },
@@ -9,4 +9,4 @@ const messageSchema = new Mongoose.Schema(
   { timestamps: true }
 );
 
-export const Message = Mongoose.model("Message", messageSchema);
+export const Message = mongoose.model("Message", messageSchema);

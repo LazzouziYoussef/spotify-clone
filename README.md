@@ -12,17 +12,21 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 
 ### ✅ Implemented
 *   **Project Architecture:** Monorepo-style structure separating `frontend` and `backend`.
-*   **Authentication Setup:** Initial integration with [Clerk](https://clerk.com/) for secure user management.
-*   **Backend Routing:** Route handlers established for Users, Songs, Albums, and Admin functions.
+*   **Authentication Setup:** Integration with [Clerk](https://clerk.com/) for secure user management with protected routes.
+*   **Backend Routing:** Route handlers established for Users, Songs, Albums, Admin functions, and Stats.
 *   **Database Connection:** MongoDB connection logic and Mongoose models (User, Song, Album, Message).
 *   **Frontend Foundation:** Vite + React + TypeScript setup with Tailwind CSS 4 configuration.
+*   **File Upload System:** Integration with `express-fileupload` for handling audio and image uploads.
+*   **Cloudinary Integration:** Media hosting for song audio files and album artwork.
+*   **Admin Functionality:** Admin routes for creating and deleting songs and albums with proper authorization.
+*   **Error Handling:** Centralized error handling middleware for production-ready responses.
 
 ### 📅 Planned Features
 *   [ ] Full Music Playback & Streaming
-*   [ ] Admin Dashboard for Content Management
+*   [ ] Admin Dashboard UI for Content Management
 *   [ ] Real-time Socket.io events (currently stubbed)
-*   [ ] Song & Album Upload (Cloudinary integration)
 *   [ ] User Playlists & Likes
+*   [ ] Search and Filtering
 
 ## Project Structure
 
@@ -48,6 +52,7 @@ spotify-clone/
 *   Node.js (v18+)
 *   MongoDB Instance
 *   Clerk Account
+*   Cloudinary Account (for media hosting)
 
 ### Installation
 
@@ -55,17 +60,33 @@ spotify-clone/
     ```bash
     cd backend
     npm install
-    # Create .env with MONGODB_URI, CLERK_KEYS, etc.
+    cp .env.sample .env
+    # Edit .env with your credentials
     npm run dev
     ```
+
+    **Backend Environment Variables:**
+    - `PORT` - Server port (default: 5000)
+    - `MONGODB_URI` - MongoDB connection string
+    - `ADMIN_EMAIL` - Email address for admin access
+    - `NODE_ENV` - Environment (development/production)
+    - `CLOUDINARY_API_KEY` - Cloudinary API key
+    - `CLOUDINARY_API_SECRET` - Cloudinary API secret
+    - `CLOUDINARY_CLOUD_NAME` - Cloudinary cloud name
+    - `CLERK_PUBLISHABLE_KEY` - Clerk frontend key
+    - `CLERK_SECRET_KEY` - Clerk backend secret key
 
 2.  **Frontend**
     ```bash
     cd frontend
     npm install
-    # Create .env with VITE_CLERK_PUBLISHABLE_KEY
+    cp .env.sample .env
+    # Edit .env with your Clerk key
     npm run dev
     ```
+
+    **Frontend Environment Variables:**
+    - `VITE_CLERK_PUBLISHABLE_KEY` - Clerk frontend publishable key
 
 ## License
 
