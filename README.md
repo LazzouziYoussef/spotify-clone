@@ -11,22 +11,58 @@ A full-stack Spotify Clone application currently under active development. This 
 The project is currently in the **Initial Setup / Skeleton** phase.
 
 ### ✅ Implemented
-*   **Project Architecture:** Monorepo-style structure separating `frontend` and `backend`.
-*   **Authentication Setup:** Integration with [Clerk](https://clerk.com/) for secure user management with protected routes.
-*   **Backend Routing:** Route handlers established for Users, Songs, Albums, Admin functions, and Stats.
-*   **Database Connection:** MongoDB connection logic and Mongoose models (User, Song, Album, Message).
-*   **Frontend Foundation:** Vite + React + TypeScript setup with Tailwind CSS 4 configuration.
-*   **File Upload System:** Integration with `express-fileupload` for handling audio and image uploads.
-*   **Cloudinary Integration:** Media hosting for song audio files and album artwork.
-*   **Admin Functionality:** Admin routes for creating and deleting songs and albums with proper authorization.
-*   **Error Handling:** Centralized error handling middleware for production-ready responses.
+
+- **Project Architecture:** Monorepo-style structure separating `frontend` and `backend`.
+- **Authentication Setup:** Integration with [Clerk](https://clerk.com/) for secure user management with protected routes.
+- **Backend Routing:** Route handlers established for Users, Songs, Albums, Admin functions, and Stats.
+- **Database Connection:** MongoDB connection logic and Mongoose models (User, Song, Album, Message).
+- **Frontend Foundation:** Vite + React + TypeScript setup with Tailwind CSS 4 configuration.
+- **File Upload System:** Integration with `express-fileupload` for handling audio and image uploads.
+- **Cloudinary Integration:** Media hosting for song audio files and album artwork.
+- **Admin Functionality:** Admin routes for creating and deleting songs and albums with proper authorization.
+- **Error Handling:** Centralized error handling middleware for production-ready responses.
 
 ### 📅 Planned Features
-*   [ ] Full Music Playback & Streaming
-*   [ ] Admin Dashboard UI for Content Management
-*   [ ] Real-time Socket.io events (currently stubbed)
-*   [ ] User Playlists & Likes
-*   [ ] Search and Filtering
+
+- [ ] Full Music Playback & Streaming
+- [ ] Admin Dashboard UI for Content Management
+- [ ] Real-time Socket.io events (currently stubbed)
+- [ ] User Playlists & Likes
+- [ ] Search and Filtering
+
+## API Endpoints
+
+### Authentication
+
+- `POST /api/auth/callback` - Handle Clerk OAuth callback
+
+### Songs
+
+- `GET /api/songs` - Get all songs (Admin only)
+- `GET /api/songs/featured` - Get featured songs (6 random songs)
+- `GET /api/songs/made-for-you` - Get personalized songs (4 random songs)
+- `GET /api/songs/trending` - Get trending songs (4 random songs)
+
+### Albums
+
+- `GET /api/albums` - Get all albums
+- `GET /api/albums/:AlbumId` - Get album by ID with songs
+
+### Admin
+
+- `POST /api/admin/songs` - Create new song (Admin only)
+- `DELETE /api/admin/songs/:id` - Delete song (Admin only)
+- `POST /api/admin/albums` - Create new album (Admin only)
+- `DELETE /api/admin/albums/:id` - Delete album (Admin only)
+- `GET /api/admin/check` - Check admin status
+
+### Users
+
+- `GET /api/users` - Get all users except current user (Authenticated)
+
+### Stats
+
+- `GET /api/stats` - Get platform statistics including songs, users, albums, and unique artists count (Admin only)
 
 ## Project Structure
 
@@ -49,14 +85,16 @@ spotify-clone/
 ## Getting Started (Dev)
 
 ### Prerequisites
-*   Node.js (v18+)
-*   MongoDB Instance
-*   Clerk Account
-*   Cloudinary Account (for media hosting)
+
+- Node.js (v18+)
+- MongoDB Instance
+- Clerk Account
+- Cloudinary Account (for media hosting)
 
 ### Installation
 
 1.  **Backend**
+
     ```bash
     cd backend
     npm install
@@ -77,6 +115,7 @@ spotify-clone/
     - `CLERK_SECRET_KEY` - Clerk backend secret key
 
 2.  **Frontend**
+
     ```bash
     cd frontend
     npm install
