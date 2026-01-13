@@ -4,7 +4,7 @@
 ![React](https://img.shields.io/badge/Frontend-React_19-61DAFB?logo=react)
 ![Node.js](https://img.shields.io/badge/Backend-Node.js-339933?logo=nodedotjs)
 
-A full-stack Spotify Clone application currently under active development. This project serves as a learning ground for modern web technologies including React 19, Express 5, and real-time data handling.
+A full-stack Spotify Clone application built with the MERN stack (MongoDB, Express, React, Node.js). This project serves as a learning ground for modern web technologies including React 19, Express 5, and real-time data handling.
 
 ## 🚧 Current Status
 
@@ -68,7 +68,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 
 ```
 spotify-clone/
-├── backend/                 # Express Server (API & Auth)
+├── backend/                 # MERN Backend - Express Server (API & Auth)
 │   ├── src/
 │   │   ├── controllers/     # Logic for Auth, Admin, etc.
 │   │   ├── models/          # Mongoose Schemas
