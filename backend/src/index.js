@@ -10,7 +10,7 @@ import authRoutes from "./routes/auth.route.js";
 import adminRoutes from "./routes/admin.route.js";
 import songRoutes from "./routes/song.route.js";
 import albumRoutes from "./routes/album.route.js";
-import statsRoutes from "./routes/stats.route.js";
+import statsRoutes from "./routes/stat.route.js";
 
 dotenv.config();
 
@@ -28,7 +28,7 @@ app.use(
     limits: {
       fileSize: 10 * 1024 * 1024,
     },
-  })
+  }),
 );
 
 app.use("/api/users", userRoutes);
@@ -39,14 +39,12 @@ app.use("/api/albums", albumRoutes);
 app.use("/api/stats", statsRoutes);
 
 app.use((err, req, res, next) =>
-  res
-    .status(500)
-    .json({
-      message:
-        process.env.NODE_ENV === "production"
-          ? "Internal Server Error"
-          : err.message,
-    })
+  res.status(500).json({
+    message:
+      process.env.NODE_ENV === "production"
+        ? "Internal Server Error"
+        : err.message,
+  }),
 );
 
 app.listen(PORT, () => {
