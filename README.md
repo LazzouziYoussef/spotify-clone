@@ -127,6 +127,10 @@ spotify-clone/
     **Frontend Environment Variables:**
     - `VITE_CLERK_PUBLISHABLE_KEY` - Clerk frontend publishable key
 
+## Acknowledgments
+
+This project was inspired by the comprehensive tutorial: [Advanced Spotify Clone: Build & Deploy a MERN Stack Spotify Application with React.js](https://www.youtube.com/watch?v=4sbklcQ0EXc&t=4553s)
+
 ## License
 
 ISC
