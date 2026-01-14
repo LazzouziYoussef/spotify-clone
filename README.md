@@ -13,18 +13,23 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 ### ✅ Implemented
 
 - **Project Architecture:** Monorepo-style structure separating `frontend` and `backend`.
-- **Authentication Setup:** Integration with [Clerk](https://clerk.com/) for secure user management with protected routes and OAuth flow.
+- **Authentication Setup:** Integration with [Clerk](https://clerk.com/) for secure user management with protected routes and OAuth flow. The `authProvider` component wraps the application and sets the authorization header for all axios requests.
 - **Backend Routing:** Route handlers established for Users, Songs, Albums, Admin functions, and Stats.
 - **Database Connection:** MongoDB connection logic and Mongoose models (User, Song, Album, Message).
 - **Frontend Foundation:** Vite + React + TypeScript setup with Tailwind CSS 4 configuration.
 - **Frontend Routing:** Client-side routing with React Router for page navigation and OAuth callbacks.
-- **API Communication:** Axios integration with AuthProvider for JWT token management and API requests.
-- **UI Components:** TopBar with navigation, SignInOAuthButton for Google OAuth authentication, and Card component.
+- **API Communication:** Axios integration for making API requests to the backend.
+- **UI Components:** 
+    - `TopBar` with navigation, `SignInOAuthButton` for Google OAuth authentication.
+    - `Button` and `Card` components in the `ui` directory.
 - **File Upload System:** Integration with `express-fileupload` for handling audio and image uploads.
 - **Cloudinary Integration:** Media hosting for song audio files and album artwork.
-- **Admin Functionality:** Admin routes for creating and deleting songs and albums with proper authorization.
+- **Admin Functionality:** 
+    - Admin routes for creating and deleting songs and albums with proper authorization.
+    - The `isAdmin` check in `TopBar.tsx` is currently hardcoded to `false`.
 - **Error Handling:** Centralized error handling middleware for production-ready responses.
 - **CORS:** Enabled for `http://localhost:3000` to allow frontend to communicate with the backend.
+- **Song Fetching:** The home page fetches featured, "made for you", and trending songs from the backend.
 
 ### 📅 Planned Features
 
@@ -73,27 +78,28 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 
 ### Authentication Flow
 
-1. User clicks "Continue with Google" (SignInOAuthButton)
-2. Clerk redirects to Google OAuth
-3. OAuth callback redirects to `/sso-callback`
-4. Final redirect to `/auth-callback` with Clerk token
+1. User clicks "Continue with Google" (`SignInOAuthButton`).
+2. Clerk redirects to Google OAuth.
+3. OAuth callback redirects to `/sso-callback`.
+4. Final redirect to `/auth-callback` with Clerk token.
 5. `AuthCallBackPage` syncs the user with the backend via a `POST` request to `/api/auth/callback`.
-6. AuthProvider extracts JWT token and configures axios headers
-7. API requests include `Authorization: Bearer <token>` header
+6. The `authProvider` component wraps the application and sets the authorization header for all axios requests using the token from Clerk.
+7. API requests include `Authorization: Bearer <token>` header.
 
 ### Client-Side Routing
 
-- `/` - HomePage with TopBar navigation
-- `/sso-callback` - Clerk OAuth redirect handler
-- `/auth-callback` - Token extraction and API token setup
-- `/admin` - Admin dashboard (planned, only accessible to admins)
+- `/` - `HomePage` with `TopBar` navigation.
+- `/sso-callback` - Clerk OAuth redirect handler.
+- `/auth-callback` - `AuthCallBackPage` for token extraction and user synchronization.
+- `/admin` - Admin dashboard (planned, only accessible to admins).
 
 ### Key Components
 
-- **TopBar:** Navigation bar with admin link, sign in/out buttons
-- **SignInOAuthButton:** Google OAuth integration with Clerk
-- **AuthProvider:** Manages Clerk JWT tokens for API authentication
-- **Axios Instance:** Pre-configured HTTP client with baseURL (http://localhost:8080/api)
+- **TopBar:** Navigation bar with admin link (currently hardcoded to not show), sign in/out buttons.
+- **SignInOAuthButton:** Google OAuth integration with Clerk.
+- **authProvider:** A component that wraps the application and sets the authorization header for axios requests.
+- **Axios Instance:** Pre-configured HTTP client with baseURL (`http://localhost:8080/api`).
+- **Button:** A simple button component.
 - **Card:** A simple card component for displaying content.
 
 ## Project Structure
@@ -108,9 +114,12 @@ spotify-clone/
 │   └── package.json
 ├── frontend/                # React Client (Vite)
 │   ├── src/
-│   │   ├── components/      # UI Components (TopBar, SignInOAuthButton, Card)
+│   │   ├── components/      # UI Components
+│   │   │   ├── ui/          # Reusable UI components (Button, Card)
+│   │   │   ├── TopBar.tsx
+│   │   │   └── SignInOAuthButton.tsx
 │   │   ├── pages/           # Page Components (HomePage, AuthCallBackPage)
-│   │   ├── providers/       # Context Providers (AuthProvider)
+│   │   ├── providers/       # Components that provide context or wrap the app
 │   │   ├── lib/             # Utilities (axios instance)
 │   │   └── App.tsx          # Main App wrapper with routing
 │   └── package.json
