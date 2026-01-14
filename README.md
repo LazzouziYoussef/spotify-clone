@@ -19,11 +19,12 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 - **Frontend Foundation:** Vite + React + TypeScript setup with Tailwind CSS 4 configuration.
 - **Frontend Routing:** Client-side routing with React Router for page navigation and OAuth callbacks.
 - **API Communication:** Axios integration with AuthProvider for JWT token management and API requests.
-- **UI Components:** TopBar with navigation, SignInOAuthButton for Google OAuth authentication.
+- **UI Components:** TopBar with navigation, SignInOAuthButton for Google OAuth authentication, and Card component.
 - **File Upload System:** Integration with `express-fileupload` for handling audio and image uploads.
 - **Cloudinary Integration:** Media hosting for song audio files and album artwork.
 - **Admin Functionality:** Admin routes for creating and deleting songs and albums with proper authorization.
 - **Error Handling:** Centralized error handling middleware for production-ready responses.
+- **CORS:** Enabled for `http://localhost:3000` to allow frontend to communicate with the backend.
 
 ### 📅 Planned Features
 
@@ -37,7 +38,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 
 ### Authentication
 
-- `POST /api/auth/callback` - Handle Clerk OAuth callback
+- `POST /api/auth/callback` - Handle Clerk OAuth callback and sync user to the database.
 
 ### Songs
 
@@ -45,6 +46,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 - `GET /api/songs/featured` - Get featured songs (6 random songs)
 - `GET /api/songs/made-for-you` - Get personalized songs (4 random songs)
 - `GET /api/songs/trending` - Get trending songs (4 random songs)
+- `GET /api/songs/:id` - Get a song by its ID.
 
 ### Albums
 
@@ -75,8 +77,9 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 2. Clerk redirects to Google OAuth
 3. OAuth callback redirects to `/sso-callback`
 4. Final redirect to `/auth-callback` with Clerk token
-5. AuthProvider extracts JWT token and configures axios headers
-6. API requests include `Authorization: Bearer <token>` header
+5. `AuthCallBackPage` syncs the user with the backend via a `POST` request to `/api/auth/callback`.
+6. AuthProvider extracts JWT token and configures axios headers
+7. API requests include `Authorization: Bearer <token>` header
 
 ### Client-Side Routing
 
@@ -90,7 +93,8 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 - **TopBar:** Navigation bar with admin link, sign in/out buttons
 - **SignInOAuthButton:** Google OAuth integration with Clerk
 - **AuthProvider:** Manages Clerk JWT tokens for API authentication
-- **Axios Instance:** Pre-configured HTTP client with baseURL (http://localhost:5000/api)
+- **Axios Instance:** Pre-configured HTTP client with baseURL (http://localhost:8080/api)
+- **Card:** A simple card component for displaying content.
 
 ## Project Structure
 
@@ -104,7 +108,7 @@ spotify-clone/
 │   └── package.json
 ├── frontend/                # React Client (Vite)
 │   ├── src/
-│   │   ├── components/      # UI Components (TopBar, SignInOAuthButton)
+│   │   ├── components/      # UI Components (TopBar, SignInOAuthButton, Card)
 │   │   ├── pages/           # Page Components (HomePage, AuthCallBackPage)
 │   │   ├── providers/       # Context Providers (AuthProvider)
 │   │   ├── lib/             # Utilities (axios instance)
@@ -135,7 +139,7 @@ spotify-clone/
     ```
 
     **Backend Environment Variables:**
-    - `PORT` - Server port (default: 5000)
+    - `PORT` - Server port (default: 8080)
     - `MONGODB_URI` - MongoDB connection string
     - `ADMIN_EMAIL` - Email address for admin access
     - `NODE_ENV` - Environment (development/production)
