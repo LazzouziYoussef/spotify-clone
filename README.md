@@ -13,10 +13,13 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 ### ✅ Implemented
 
 - **Project Architecture:** Monorepo-style structure separating `frontend` and `backend`.
-- **Authentication Setup:** Integration with [Clerk](https://clerk.com/) for secure user management with protected routes.
+- **Authentication Setup:** Integration with [Clerk](https://clerk.com/) for secure user management with protected routes and OAuth flow.
 - **Backend Routing:** Route handlers established for Users, Songs, Albums, Admin functions, and Stats.
 - **Database Connection:** MongoDB connection logic and Mongoose models (User, Song, Album, Message).
 - **Frontend Foundation:** Vite + React + TypeScript setup with Tailwind CSS 4 configuration.
+- **Frontend Routing:** Client-side routing with React Router for page navigation and OAuth callbacks.
+- **API Communication:** Axios integration with AuthProvider for JWT token management and API requests.
+- **UI Components:** TopBar with navigation, SignInOAuthButton for Google OAuth authentication.
 - **File Upload System:** Integration with `express-fileupload` for handling audio and image uploads.
 - **Cloudinary Integration:** Media hosting for song audio files and album artwork.
 - **Admin Functionality:** Admin routes for creating and deleting songs and albums with proper authorization.
@@ -64,6 +67,31 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 
 - `GET /api/stats` - Get platform statistics including songs, users, albums, and unique artists count (Admin only)
 
+## Frontend Architecture
+
+### Authentication Flow
+
+1. User clicks "Continue with Google" (SignInOAuthButton)
+2. Clerk redirects to Google OAuth
+3. OAuth callback redirects to `/sso-callback`
+4. Final redirect to `/auth-callback` with Clerk token
+5. AuthProvider extracts JWT token and configures axios headers
+6. API requests include `Authorization: Bearer <token>` header
+
+### Client-Side Routing
+
+- `/` - HomePage with TopBar navigation
+- `/sso-callback` - Clerk OAuth redirect handler
+- `/auth-callback` - Token extraction and API token setup
+- `/admin` - Admin dashboard (planned, only accessible to admins)
+
+### Key Components
+
+- **TopBar:** Navigation bar with admin link, sign in/out buttons
+- **SignInOAuthButton:** Google OAuth integration with Clerk
+- **AuthProvider:** Manages Clerk JWT tokens for API authentication
+- **Axios Instance:** Pre-configured HTTP client with baseURL (http://localhost:5000/api)
+
 ## Project Structure
 
 ```
@@ -76,8 +104,11 @@ spotify-clone/
 │   └── package.json
 ├── frontend/                # React Client (Vite)
 │   ├── src/
-│   │   ├── components/      # UI Components (e.g., Shadcn UI Button)
-│   │   └── App.tsx          # Main App wrapper with Auth checks
+│   │   ├── components/      # UI Components (TopBar, SignInOAuthButton)
+│   │   ├── pages/           # Page Components (HomePage, AuthCallBackPage)
+│   │   ├── providers/       # Context Providers (AuthProvider)
+│   │   ├── lib/             # Utilities (axios instance)
+│   │   └── App.tsx          # Main App wrapper with routing
 │   └── package.json
 └── README.md
 ```
@@ -123,6 +154,10 @@ spotify-clone/
     # Edit .env with your Clerk key
     npm run dev
     ```
+
+    **Frontend Configuration:**
+    - Dev server runs on port 3000
+    - Dark mode enabled by default
 
     **Frontend Environment Variables:**
     - `VITE_CLERK_PUBLISHABLE_KEY` - Clerk frontend publishable key
