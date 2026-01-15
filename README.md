@@ -22,6 +22,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 - **UI Components:** 
     - `TopBar` with navigation, `SignInOAuthButton` for Google OAuth authentication.
     - `Button` and `Card` components in the `ui` directory.
+    - **New:** `MainLayout` using `react-resizable-panels` for a responsive, Spotify-like interface with resizable sidebars.
 - **File Upload System:** Integration with `express-fileupload` for handling audio and image uploads.
 - **Cloudinary Integration:** Media hosting for song audio files and album artwork.
 - **Admin Functionality:** 
@@ -88,19 +89,20 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 
 ### Client-Side Routing
 
-- `/` - `HomePage` with `TopBar` navigation.
+- `/` - `HomePage` wrapped in `MainLayout`.
+- `/chat` - `ChatPage` wrapped in `MainLayout` (placeholder).
 - `/sso-callback` - Clerk OAuth redirect handler.
 - `/auth-callback` - `AuthCallBackPage` for token extraction and user synchronization.
 - `/admin` - Admin dashboard (planned, only accessible to admins).
 
 ### Key Components
 
+- **MainLayout:** The core application wrapper providing the resizable 3-pane layout (Sidebar, Content, Friends).
 - **TopBar:** Navigation bar with admin link (currently hardcoded to not show), sign in/out buttons.
 - **SignInOAuthButton:** Google OAuth integration with Clerk.
 - **authProvider:** A component that wraps the application and sets the authorization header for axios requests.
 - **Axios Instance:** Pre-configured HTTP client with baseURL (`http://localhost:8080/api`).
-- **Button:** A simple button component.
-- **Card:** A simple card component for displaying content.
+- **UI System:** Built with Radix UI primitives and Tailwind CSS (`Button`, `Card`, `Resizable`, `ScrollArea`).
 
 ## Project Structure
 
@@ -115,10 +117,15 @@ spotify-clone/
 ├── frontend/                # React Client (Vite)
 │   ├── src/
 │   │   ├── components/      # UI Components
-│   │   │   ├── ui/          # Reusable UI components (Button, Card)
+│   │   │   ├── ui/          # Reusable UI components (Button, Card, Resizable)
+│   │   │   ├── skeletons/   # Loading skeletons
 │   │   │   ├── TopBar.tsx
 │   │   │   └── SignInOAuthButton.tsx
-│   │   ├── pages/           # Page Components (HomePage, AuthCallBackPage)
+│   │   ├── layout/          # Layout wrappers (MainLayout)
+│   │   ├── pages/           # Page Components
+│   │   │   ├── chat/        # Chat functionality
+│   │   │   ├── home/        # Home page
+│   │   │   └── auth-callback/
 │   │   ├── providers/       # Components that provide context or wrap the app
 │   │   ├── lib/             # Utilities (axios instance)
 │   │   └── App.tsx          # Main App wrapper with routing
