@@ -22,7 +22,7 @@ const AuthCallBackPage = () => {
           imgUrl: user.imageUrl,
         });
       } catch (error) {
-        console.log("error in Callback");
+        console.log("Error syncing user", error);
       } finally {
         navigate("/");
       }

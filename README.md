@@ -37,7 +37,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 - [ ] Full Music Playback & Streaming
 - [ ] Admin Dashboard UI for Content Management
 - [ ] Real-time Socket.io events (currently stubbed)
-- [ ] User Playlists & Likes
+- [x] User Playlists & Likes (Backend routes created)
 - [ ] Search and Filtering
 
 ## API Endpoints
@@ -70,6 +70,12 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 ### Users
 
 - `GET /api/users` - Get all users except current user (Authenticated)
+
+### Playlists
+
+- `POST /api/users/playlist` - Create a new playlist
+- `GET /api/users/playlists` - Get all playlists
+- `GET /api/users/playlists/:PlaylistId` - Get playlist by ID
 
 ### Stats
 
@@ -110,8 +116,8 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 spotify-clone/
 ├── backend/                 # MERN Backend - Express Server (API & Auth)
 │   ├── src/
-│   │   ├── controllers/     # Logic for Auth, Admin, etc.
-│   │   ├── models/          # Mongoose Schemas
+│   │   ├── controllers/     # Logic for Auth, Admin, Playlist, etc.
+│   │   ├── models/          # Mongoose Schemas (User, Song, Playlist)
 │   │   └── routes/          # API Endpoint Definitions
 │   └── package.json
 ├── frontend/                # React Client (Vite)

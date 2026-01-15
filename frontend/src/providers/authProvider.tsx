@@ -2,17 +2,19 @@ import { axiosInstance } from "@/lib/axios";
 import { useAuth } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
 import { Loader } from "lucide-react";
+
 const updateApiToken = (token: string | null) => {
   if (token) {
-    axiosInstance.defaults.headers.common["Authorization"] = `Bearer $(token)`;
+    axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   } else {
     delete axiosInstance.defaults.headers.common["Authorization"];
   }
 };
 
-const authProvider = ({ children }: { children: React.ReactNode }) => {
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { getToken } = useAuth();
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const initAuth = async () => {
       try {
@@ -20,13 +22,15 @@ const authProvider = ({ children }: { children: React.ReactNode }) => {
         updateApiToken(token);
       } catch (error) {
         updateApiToken(null);
-        console.log("Error in Auth Provider");
+        console.log("Error in Auth Provider", error);
       } finally {
         setLoading(false);
       }
     };
+
     initAuth();
   }, [getToken]);
+
   if (loading)
     return (
       <div className="h-screen w-full flex items-center justify-center">
@@ -37,4 +41,4 @@ const authProvider = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-export default authProvider;
+export default AuthProvider;
