@@ -25,10 +25,10 @@ const songSchema = new mongoose.Schema(
     albumId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Album",
-      required: true,
+      required: false,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const Song = mongoose.model("Song", songSchema);

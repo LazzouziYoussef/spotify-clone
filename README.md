@@ -31,6 +31,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 - **Error Handling:** Centralized error handling middleware for production-ready responses.
 - **CORS:** Enabled for `http://localhost:3000` to allow frontend to communicate with the backend.
 - **Song Fetching:** The home page fetches featured, "made for you", and trending songs from the backend.
+- **Database Seeding:** Scripts to populate the database with initial songs and albums.
 
 ### 📅 Planned Features
 
@@ -48,7 +49,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 
 ### Songs
 
-- `GET /api/songs` - Get all songs (Admin only)
+- `GET /api/songs` - Get all songs
 - `GET /api/songs/featured` - Get featured songs (6 random songs)
 - `GET /api/songs/made-for-you` - Get personalized songs (4 random songs)
 - `GET /api/songs/trending` - Get trending songs (4 random songs)
@@ -118,7 +119,8 @@ spotify-clone/
 │   ├── src/
 │   │   ├── controllers/     # Logic for Auth, Admin, Playlist, etc.
 │   │   ├── models/          # Mongoose Schemas (User, Song, Playlist)
-│   │   └── routes/          # API Endpoint Definitions
+│   │   ├── routes/          # API Endpoint Definitions
+│   │   └── seeds/           # Database seeding scripts
 │   └── package.json
 ├── frontend/                # React Client (Vite)
 │   ├── src/
