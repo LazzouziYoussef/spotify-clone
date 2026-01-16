@@ -15,9 +15,9 @@ const MainLayout = () => {
         className="flex-1 flex h-full overflow-hidden p-2"
       >
         <ResizablePanel
-          defaultSize={20}
+          defaultSize={100}
           minSize={isMobile ? 0 : 10}
-          maxSize={180}
+          maxSize={500}
         >
           <LeftSidebar />
         </ResizablePanel>
@@ -35,7 +35,7 @@ const MainLayout = () => {
             <ResizablePanel
               defaultSize={20}
               minSize={0}
-              maxSize={180}
+              maxSize={300}
               collapsedSize={0}
             >
               FriendsActivity

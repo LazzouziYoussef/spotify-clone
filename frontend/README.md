@@ -71,3 +71,20 @@ export default defineConfig([
   },
 ])
 ```
+
+## Recent Changes
+
+### Backend
+- **Scripts**: Added `seed:songs` and `seed:albums` scripts.
+- **Controllers**: 
+  - Added `await` to database queries in `album.controller.js` and `song.controller.js` to ensure correct execution.
+  - Fixed `AlbumId` destructuring and added error handling in `getAlbumById`.
+- **Models**: Made `albumId` optional in `Song` schema.
+- **Routes**: Made `getAllSongs` route public (removed `protectRoute` and `requireAdmin`).
+
+### Frontend
+- **Dependencies**: Added `zustand` for state management.
+- **Layout**: 
+  - Adjusted `ResizablePanel` constraints in `MainLayout.tsx`.
+  - Updated `LeftSidebar.tsx` to use `useMusicStore` for fetching albums and improved UI styling/icons.
+- **Assets**: Added initial set of public assets (albums, covers, songs).
