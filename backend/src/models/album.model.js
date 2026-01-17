@@ -12,14 +12,14 @@ const albumSchema = new mongoose.Schema(
     },
     imageUrl: { type: String, required: true },
     releaseDate: {
-      type: Date,
+      type: Number,
       required: true,
     },
     songs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Song" }],
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export const Album = mongoose.model("Album", albumSchema);

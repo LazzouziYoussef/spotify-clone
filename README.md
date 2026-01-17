@@ -23,6 +23,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
     - `TopBar` with navigation, `SignInOAuthButton` for Google OAuth authentication.
     - `Button` and `Card` components in the `ui` directory.
     - **New:** `MainLayout` using `react-resizable-panels` for a responsive, Spotify-like interface with resizable sidebars.
+    - **New:** `AlbumPage` for viewing album details, songs, and metadata.
 - **File Upload System:** Integration with `express-fileupload` for handling audio and image uploads.
 - **Cloudinary Integration:** Media hosting for song audio files and album artwork.
 - **Admin Functionality:** 
@@ -98,6 +99,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 
 - `/` - `HomePage` wrapped in `MainLayout`.
 - `/chat` - `ChatPage` wrapped in `MainLayout` (placeholder).
+- `/albums/:albumId` - `AlbumPage` wrapped in `MainLayout`.
 - `/sso-callback` - Clerk OAuth redirect handler.
 - `/auth-callback` - `AuthCallBackPage` for token extraction and user synchronization.
 - `/admin` - Admin dashboard (planned, only accessible to admins).
@@ -131,6 +133,7 @@ spotify-clone/
 │   │   │   └── SignInOAuthButton.tsx
 │   │   ├── layout/          # Layout wrappers (MainLayout)
 │   │   ├── pages/           # Page Components
+│   │   │   ├── album/       # Album details page
 │   │   │   ├── chat/        # Chat functionality
 │   │   │   ├── home/        # Home page
 │   │   │   └── auth-callback/
