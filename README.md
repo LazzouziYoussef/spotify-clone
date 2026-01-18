@@ -21,8 +21,9 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 - **API Communication:** Axios integration for making API requests to the backend.
 - **UI Components:** 
     - `TopBar` with navigation, `SignInOAuthButton` for Google OAuth authentication.
-    - `Button` and `Card` components in the `ui` directory.
+    - `Button`, `Card`, and `Avatar` components in the `ui` directory.
     - **New:** `MainLayout` using `react-resizable-panels` for a responsive, Spotify-like interface with resizable sidebars.
+    - **New:** `FriendsActivity` sidebar component displaying user presence.
     - **New:** `AlbumPage` for viewing album details, songs, and metadata.
 - **File Upload System:** Integration with `express-fileupload` for handling audio and image uploads.
 - **Cloudinary Integration:** Media hosting for song audio files and album artwork.
@@ -107,6 +108,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 ### Key Components
 
 - **MainLayout:** The core application wrapper providing the resizable 3-pane layout (Sidebar, Content, Friends).
+- **FriendsActivity:** Displays a list of users/friends and their current listening status.
 - **TopBar:** Navigation bar with admin link (currently hardcoded to not show), sign in/out buttons.
 - **SignInOAuthButton:** Google OAuth integration with Clerk.
 - **authProvider:** A component that wraps the application and sets the authorization header for axios requests.
@@ -132,12 +134,16 @@ spotify-clone/
 │   │   │   ├── TopBar.tsx
 │   │   │   └── SignInOAuthButton.tsx
 │   │   ├── layout/          # Layout wrappers (MainLayout)
+│   │   │   ├── components/  # Layout specific components
+│   │   │   │   └── FriendsActivity.tsx
 │   │   ├── pages/           # Page Components
 │   │   │   ├── album/       # Album details page
 │   │   │   ├── chat/        # Chat functionality
 │   │   │   ├── home/        # Home page
 │   │   │   └── auth-callback/
 │   │   ├── providers/       # Components that provide context or wrap the app
+│   │   ├── stores/          # Zustand stores
+│   │   │   └── useChatStore.ts
 │   │   ├── lib/             # Utilities (axios instance)
 │   │   └── App.tsx          # Main App wrapper with routing
 │   └── package.json
