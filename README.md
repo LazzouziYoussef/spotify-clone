@@ -20,16 +20,17 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 - **Frontend Routing:** Client-side routing with React Router for page navigation and OAuth callbacks.
 - **API Communication:** Axios integration for making API requests to the backend.
 - **UI Components:** 
-    - `TopBar` with navigation, `SignInOAuthButton` for Google OAuth authentication.
+    - `TopBar` with navigation, `UserButton` (Clerk), and dynamic admin dashboard access.
     - `Button`, `Card`, and `Avatar` components in the `ui` directory.
     - **New:** `MainLayout` using `react-resizable-panels` for a responsive, Spotify-like interface with resizable sidebars.
     - **New:** `FriendsActivity` sidebar component displaying user presence.
     - **New:** `AlbumPage` for viewing album details, songs, and metadata.
+    - **New:** Loading skeletons (`FeaturedGridSkeleton`, `SectionGridSkeleton`) for smooth data fetching states.
 - **File Upload System:** Integration with `express-fileupload` for handling audio and image uploads.
 - **Cloudinary Integration:** Media hosting for song audio files and album artwork.
 - **Admin Functionality:** 
     - Admin routes for creating and deleting songs and albums with proper authorization.
-    - The `isAdmin` check in `TopBar.tsx` is currently hardcoded to `false`.
+    - **Updated:** The `isAdmin` check is now dynamically handled via `useAuthStore` verifying against the backend.
 - **Error Handling:** Centralized error handling middleware for production-ready responses.
 - **CORS:** Enabled for `http://localhost:3000` to allow frontend to communicate with the backend.
 - **Song Fetching:** The home page fetches featured, "made for you", and trending songs from the backend.
@@ -119,35 +120,27 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 
 ```
 spotify-clone/
-├── backend/                 # MERN Backend - Express Server (API & Auth)
-│   ├── src/
-│   │   ├── controllers/     # Logic for Auth, Admin, Playlist, etc.
-│   │   ├── models/          # Mongoose Schemas (User, Song, Playlist)
-│   │   ├── routes/          # API Endpoint Definitions
-│   │   └── seeds/           # Database seeding scripts
-│   └── package.json
-├── frontend/                # React Client (Vite)
-│   ├── src/
-│   │   ├── components/      # UI Components
-│   │   │   ├── ui/          # Reusable UI components (Button, Card, Resizable)
-│   │   │   ├── skeletons/   # Loading skeletons
-│   │   │   ├── TopBar.tsx
-│   │   │   └── SignInOAuthButton.tsx
-│   │   ├── layout/          # Layout wrappers (MainLayout)
-│   │   │   ├── components/  # Layout specific components
-│   │   │   │   └── FriendsActivity.tsx
-│   │   ├── pages/           # Page Components
-│   │   │   ├── album/       # Album details page
-│   │   │   ├── chat/        # Chat functionality
-│   │   │   ├── home/        # Home page
-│   │   │   └── auth-callback/
-│   │   ├── providers/       # Components that provide context or wrap the app
-│   │   ├── stores/          # Zustand stores
-│   │   │   └── useChatStore.ts
-│   │   ├── lib/             # Utilities (axios instance)
-│   │   └── App.tsx          # Main App wrapper with routing
-│   └── package.json
-└── README.md
+├── backend/
+│   └── src/
+│       ├── controllers/
+│       ├── lib/
+│       ├── middleware/
+│       ├── models/
+│       ├── routes/
+│       └── seeds/
+└── frontend/
+    ├── public/
+    │   ├── albums/
+    │   ├── cover-images/
+    │   └── songs/
+    └── src/
+        ├── components/
+        ├── layout/
+        ├── lib/
+        ├── pages/
+        ├── providers/
+        ├── stores/
+        └── types/
 ```
 
 ## Getting Started (Dev)

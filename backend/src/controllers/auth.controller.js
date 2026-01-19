@@ -2,17 +2,17 @@ import { User } from "../models/user.model.js"; // Use Capital U for the model
 
 export const authCallback = async (req, res, next) => {
   try {
-    const { id, firstName, lastName, imageUrl } = req.body;
+    const { id, firstName, lastName, imgUrl } = req.body;
 
     const existingUser = await User.findOne({ clerkId: id });
     const avatarUrl =
-      imageUrl ||
+      imgUrl ||
       `https://ui-avatars.com/api/?name=${firstName}+${lastName}&background=random`;
 
     if (!existingUser) {
       await User.create({
         fullName: `${firstName} ${lastName}`,
-        imgUrl: imageUrl || avatarUrl,
+        imgUrl: imgUrl || avatarUrl,
         clerkId: id,
       });
     }

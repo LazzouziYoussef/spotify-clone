@@ -5,6 +5,7 @@ import App from "./App.tsx";
 import { ClerkProvider } from "@clerk/clerk-react";
 import { BrowserRouter } from "react-router-dom";
 import AuthProvider from "./providers/authProvider.tsx";
+import { dark } from "@clerk/themes";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -14,7 +15,10 @@ if (!PUBLISHABLE_KEY) {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+    <ClerkProvider
+      publishableKey={PUBLISHABLE_KEY}
+      appearance={{ theme: dark }}
+    >
       <AuthProvider>
         <BrowserRouter>
           <App />
