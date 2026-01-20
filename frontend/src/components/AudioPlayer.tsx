@@ -13,19 +13,7 @@ const AudioPlayer = () => {
     playNext,
   } = usePlayerStore();
 
-  // Play/Pause effect – reacts to isPlaying immediately
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio || !currentSong) return;
-
-    if (isPlaying) {
-      audio.play().catch(() => {});
-    } else {
-      audio.pause();
-    }
-  }, [isPlaying, currentSong]);
-
-  // Autoplay effect – runs on song change
+  // Update audio src when song changes
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio || !currentSong) return;
@@ -44,12 +32,26 @@ const AudioPlayer = () => {
     }
   }, [currentSong, shouldAutoplay, setShouldAutoplay]);
 
-  // Handle song ended -> play next
+  // Play/pause effect reacts to isPlaying
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    const onEnded = () => playNext();
+    if (isPlaying) {
+      audio.play().catch(() => {});
+    } else {
+      audio.pause();
+    }
+  }, [isPlaying, currentSong]);
+
+  // Handle song ended -> play next automatically
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const onEnded = () => {
+      playNext(); // store updates currentSong + sets shouldAutoplay = true
+    };
 
     audio.addEventListener("ended", onEnded);
     return () => audio.removeEventListener("ended", onEnded);

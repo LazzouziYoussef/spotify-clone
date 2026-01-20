@@ -21,15 +21,16 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 - **API Communication:** Axios integration for making API requests to the backend.
 - **UI Components:** 
     - `TopBar` with navigation, `UserButton` (Clerk), and dynamic admin dashboard access.
-    - `Button`, `Card`, and `Avatar` components in the `ui` directory.
+    - `Button`, `Card`, `Slider`, and `Avatar` components in the `ui` directory.
     - **New:** `MainLayout` using `react-resizable-panels` for a responsive, Spotify-like interface with resizable sidebars.
     - **New:** `FriendsActivity` sidebar component displaying user presence.
+    - **New:** `PlaybackControls` footer component with volume/seek sliders, play/pause, and track navigation.
     - **New:** `AlbumPage` for viewing album details, songs, and metadata with integrated playback controls.
     - **New:** `AudioPlayer` component for synchronized HTML5 audio playback.
     - **New:** Loading skeletons (`FeaturedGridSkeleton`, `SectionGridSkeleton`) for smooth data fetching states.
 - **Music Playback System:** 
     - Global state management for playback using `usePlayerStore` (Zustand).
-    - Features include play/pause, next/previous track, and autoplay functionality.
+    - Features include play/pause, next/previous track, volume control, seek functionality, and autoplay.
 - **File Upload System:** Integration with `express-fileupload` for handling audio and image uploads.
 - **Cloudinary Integration:** Media hosting for song audio files and album artwork.
 - **Admin Functionality:** 
