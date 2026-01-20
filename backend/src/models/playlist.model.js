@@ -6,6 +6,8 @@ const playlistSchema = new mongoose.Schema({
     required: true,
   },
   songs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Song" }],
+
+  users: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 
 export const Playlist = mongoose.model("Playlist", playlistSchema);

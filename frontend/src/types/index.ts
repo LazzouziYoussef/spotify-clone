@@ -41,3 +41,15 @@ export interface User {
   fullName: string;
   imgUrl: string;
 }
+
+export interface SearchResult {
+  songs?: Song[];
+  albums?: Album[];
+}
+
+export type SearchFilter = "songs" | "albums";
+
+export interface SearchHistoryItem {
+  query: string;
+  timestamp: number;
+}
