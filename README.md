@@ -24,8 +24,12 @@ The project is currently in the **Initial Setup / Skeleton** phase.
     - `Button`, `Card`, and `Avatar` components in the `ui` directory.
     - **New:** `MainLayout` using `react-resizable-panels` for a responsive, Spotify-like interface with resizable sidebars.
     - **New:** `FriendsActivity` sidebar component displaying user presence.
-    - **New:** `AlbumPage` for viewing album details, songs, and metadata.
+    - **New:** `AlbumPage` for viewing album details, songs, and metadata with integrated playback controls.
+    - **New:** `AudioPlayer` component for synchronized HTML5 audio playback.
     - **New:** Loading skeletons (`FeaturedGridSkeleton`, `SectionGridSkeleton`) for smooth data fetching states.
+- **Music Playback System:** 
+    - Global state management for playback using `usePlayerStore` (Zustand).
+    - Features include play/pause, next/previous track, and autoplay functionality.
 - **File Upload System:** Integration with `express-fileupload` for handling audio and image uploads.
 - **Cloudinary Integration:** Media hosting for song audio files and album artwork.
 - **Admin Functionality:** 
@@ -38,7 +42,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 
 ### 📅 Planned Features
 
-- [ ] Full Music Playback & Streaming
+- [x] Full Music Playback & Streaming
 - [ ] Admin Dashboard UI for Content Management
 - [ ] Real-time Socket.io events (currently stubbed)
 - [x] User Playlists & Likes (Backend routes created)
@@ -111,6 +115,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 - **MainLayout:** The core application wrapper providing the resizable 3-pane layout (Sidebar, Content, Friends).
 - **FriendsActivity:** Displays a list of users/friends and their current listening status.
 - **TopBar:** Navigation bar with admin link (currently hardcoded to not show), sign in/out buttons.
+- **AudioPlayer:** Handles synchronized HTML5 audio playback and state updates.
 - **SignInOAuthButton:** Google OAuth integration with Clerk.
 - **authProvider:** A component that wraps the application and sets the authorization header for axios requests.
 - **Axios Instance:** Pre-configured HTTP client with baseURL (`http://localhost:8080/api`).
