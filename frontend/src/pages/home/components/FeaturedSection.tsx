@@ -5,6 +5,7 @@ import PlayButton from "./PlayButton";
 const FeaturedSection = () => {
   const { isLoading, featuredSongs, error } = useMusicStore();
   if (isLoading) return <FeaturedGridSkeleton />;
+  if (error) return <p className="text-red-500">{error}</p>;
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {featuredSongs.map((song) => (

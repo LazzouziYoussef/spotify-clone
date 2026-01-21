@@ -22,12 +22,8 @@ const SearchDropdown = ({
   const [results, setResults] = useState<SearchResult>({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    searchHistory,
-    removeFromHistory,
-    activeFilters,
-    toggleFilter,
-  } = useSearchStore();
+  const { searchHistory, removeFromHistory, activeFilters, toggleFilter } =
+    useSearchStore();
 
   const debouncedQuery = useDebounce(query, 300);
 
@@ -43,7 +39,7 @@ const SearchDropdown = ({
       try {
         const filterParam = activeFilters.join(",");
         const { data } = await axiosInstance.get<SearchResult>(
-          `/search?q=${encodeURIComponent(debouncedQuery)}&filter=${filterParam}`
+          `/search?q=${encodeURIComponent(debouncedQuery)}&filter=${filterParam}`,
         );
         setResults(data);
       } catch (error) {
@@ -62,7 +58,7 @@ const SearchDropdown = ({
     (results.albums && results.albums.length > 0);
 
   return (
-    <div className="absolute top-full left-0 right-0 mt-2 bg-zinc-900 border border-zinc-800 rounded-lg shadow-lg overflow-hidden z-50 w-80">
+    <div className="absolute top-full left-0 right-0 mt-2 bg-zinc-900 border border-zinc-800 rounded-lg shadow-lg overflow-visible z-50 w-80">
       <div className="p-3 border-b border-zinc-800">
         {/* Filter Chips */}
         <div className="flex gap-2 mb-3">

@@ -18,7 +18,7 @@ interface SearchStore {
 
 export const useSearchStore = create<SearchStore>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       // Initial state
       searchHistory: [],
       activeFilters: ["songs", "albums"],

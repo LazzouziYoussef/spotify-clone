@@ -1,4 +1,4 @@
-import { Song, Album } from "@/types";
+import type { Song, Album } from "@/types";
 import { Play } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

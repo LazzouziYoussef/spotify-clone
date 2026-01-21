@@ -46,7 +46,7 @@ const AlbumPage = () => {
             className="absolute inset-0 bg-linear-to-b from-[#5038a0]/80 via-zinc-900/80 to-zinc-900 pointer-events-none"
             aria-hidden="true"
           />
-          <div className="relative z-10">
+          <div className="relative z-5">
             <div className="flex p-6 gap-6 pb-8">
               <img
                 src={currentAlbum?.imageUrl}

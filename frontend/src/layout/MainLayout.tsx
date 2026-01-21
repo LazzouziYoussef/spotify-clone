@@ -8,6 +8,7 @@ import LeftSidebar from "./components/LeftSidebar";
 import FriendsActivity from "./components/FriendsActivity";
 import AudioPlayer from "@/components/AudioPlayer";
 import PlaybackControls from "./components/PlaybackControls";
+import TopBar from "@/components/TopBar";
 
 const MainLayout = () => {
   const isMobile = false;
@@ -29,6 +30,7 @@ const MainLayout = () => {
         <ResizableHandle className="w-2 bg-black rounded-lg transition-colors" />
 
         <ResizablePanel defaultSize={isMobile ? 80 : 60}>
+          <TopBar />
           <Outlet />
         </ResizablePanel>
 

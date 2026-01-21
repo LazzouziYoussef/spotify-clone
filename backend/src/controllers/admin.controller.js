@@ -9,7 +9,7 @@ const uploadToCloudinary = async (file) => {
     });
     return result.secure_url;
   } catch (error) {
-    console.log("Error in Upload", error);
+
     throw new Error("Error when uploading to cloudinary");
   }
 };
@@ -45,7 +45,7 @@ export const createSong = async (req, res, next) => {
 
     res.status(201).json(song);
   } catch (error) {
-    console.log("Error in CreateSong", error);
+
     next(error);
   }
 };
@@ -63,7 +63,7 @@ export const deleteSong = async (req, res, next) => {
     await song.findByIdAndDelete(id);
     res.status(200).json({ message: "Song deleted successfully" });
   } catch (error) {
-    console.log("Error in delete song controller");
+
     next(error);
   }
 };
@@ -85,7 +85,7 @@ export const createAlbum = async (req, res, next) => {
 
     res.status(201).json(album);
   } catch (error) {
-    console.log("Error in createAlbum");
+
     next(error);
   }
 };
