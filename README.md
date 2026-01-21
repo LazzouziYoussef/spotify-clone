@@ -48,7 +48,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 - [x] Admin Dashboard UI for Content Management
 - [ ] Real-time Socket.io events (currently stubbed)
 - [x] User Playlists & Likes (Backend routes created)
-- [ ] Search and Filtering
+- [x] Search and Filtering
 
 ## API Endpoints
 
