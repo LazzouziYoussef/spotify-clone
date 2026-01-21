@@ -35,6 +35,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 - **Cloudinary Integration:** Media hosting for song audio files and album artwork.
 - **Admin Functionality:** 
     - Admin routes for creating and deleting songs and albums with proper authorization.
+    - **New:** An admin dashboard UI to manage songs and albums, view platform statistics, and perform content management tasks.
     - **Updated:** The `isAdmin` check is now dynamically handled via `useAuthStore` verifying against the backend.
 - **Error Handling:** Centralized error handling middleware for production-ready responses.
 - **CORS:** Enabled for `http://localhost:3000` to allow frontend to communicate with the backend.
@@ -44,7 +45,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 ### 📅 Planned Features
 
 - [x] Full Music Playback & Streaming
-- [ ] Admin Dashboard UI for Content Management
+- [x] Admin Dashboard UI for Content Management
 - [ ] Real-time Socket.io events (currently stubbed)
 - [x] User Playlists & Likes (Backend routes created)
 - [ ] Search and Filtering
@@ -109,7 +110,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 - `/albums/:albumId` - `AlbumPage` wrapped in `MainLayout`.
 - `/sso-callback` - Clerk OAuth redirect handler.
 - `/auth-callback` - `AuthCallBackPage` for token extraction and user synchronization.
-- `/admin` - Admin dashboard (planned, only accessible to admins).
+- `/admin` - Admin dashboard for content management.
 
 ### Key Components
 

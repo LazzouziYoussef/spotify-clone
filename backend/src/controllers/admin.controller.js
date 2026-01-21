@@ -9,7 +9,6 @@ const uploadToCloudinary = async (file) => {
     });
     return result.secure_url;
   } catch (error) {
-
     throw new Error("Error when uploading to cloudinary");
   }
 };
@@ -45,7 +44,6 @@ export const createSong = async (req, res, next) => {
 
     res.status(201).json(song);
   } catch (error) {
-
     next(error);
   }
 };
@@ -60,10 +58,9 @@ export const deleteSong = async (req, res, next) => {
       });
     }
 
-    await song.findByIdAndDelete(id);
+    await Song.findByIdAndDelete(id);
     res.status(200).json({ message: "Song deleted successfully" });
   } catch (error) {
-
     next(error);
   }
 };
@@ -85,7 +82,6 @@ export const createAlbum = async (req, res, next) => {
 
     res.status(201).json(album);
   } catch (error) {
-
     next(error);
   }
 };
@@ -94,7 +90,7 @@ export const deleteAlbum = async (req, res, next) => {
   try {
     const { id } = req.params;
     await Song.deleteMany({ albumId: id });
-    await album.findByIdAndDelete(id);
+    await Album.findByIdAndDelete(id);
     res.status(200).json({ message: "Album deleted successfully" });
   } catch (error) {
     console.log("error in deleteAlbum");
