@@ -1,5 +1,7 @@
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import { useEffect, useRef } from "react";
+import { useChatStore } from "@/stores/useChatStore";
+import { useUser } from "@clerk/clerk-react";
 
 const AudioPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -12,6 +14,18 @@ const AudioPlayer = () => {
     setShouldAutoplay,
     playNext,
   } = usePlayerStore();
+
+  const { socket } = useChatStore();
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (socket && user) {
+      const activity = isPlaying
+        ? `Playing ${currentSong?.title} by ${currentSong?.artist}`
+        : "Idle";
+      socket.emit("update_activity", { userId: user.id, activity });
+    }
+  }, [isPlaying, currentSong, socket, user]);
 
   // Update audio src when song changes
   useEffect(() => {
