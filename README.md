@@ -35,16 +35,22 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 	- Integrated `socket.io` for real-time communication between clients and the server.
 	- The `FriendsActivity` sidebar now shows users' online status and what song they are currently listening to.
 	- A new `ChatPage` allows for real-time messaging between users.
-- **File Upload System:** Integration with `express-fileupload` for handling audio and image uploads.
-- **Cloudinary Integration:** Media hosting for song audio files and album artwork.
+- **File Upload System:** Integration with `express-fileupload` for handling audio and image uploads, with enhanced processing for metadata extraction.
+- **Cloudinary Integration:** Enhanced media hosting for song audio files and album artwork, including automatic metadata extraction and cover art upload from audio files, and improved timeout handling.
 - **Admin Functionality:** 
     - Admin routes for creating and deleting songs and albums with proper authorization.
     - **New:** An admin dashboard UI to manage songs and albums, view platform statistics, and perform content management tasks.
     - **Updated:** The `isAdmin` check is now dynamically handled via `useAuthStore` verifying against the backend.
+    - **New:** Automatic metadata extraction from audio files during song upload.
+    - **New:** Optional image upload for songs, with fallback to embedded cover art from audio or a default placeholder.
+    - **New:** Admin: Auto-fill song title and artist from filename when uploading audio if not manually provided.
+    - **New:** Admin: Improved song creation now supports richer metadata fields (album, year, genre) extracted from audio.
+    - **New:** Admin: `AddSongDialog` closes automatically on successful song creation.
 - **Error Handling:** Centralized error handling middleware for production-ready responses.
 - **CORS:** Enabled for `http://localhost:3000` to allow frontend to communicate with the backend.
 - **Song Fetching:** The home page fetches featured, "made for you", and trending songs from the backend.
 - **Database Seeding:** Scripts to populate the database with initial songs and albums.
+- **New 404 Page:** Generic 'Not Found' page for invalid routes.
 
 ### 📅 Planned Features
 

@@ -26,7 +26,6 @@ interface NewSong {
   title: string;
   artist: string;
   album: string;
-  duration: string;
 }
 
 const AddSongDialog = () => {
@@ -38,7 +37,6 @@ const AddSongDialog = () => {
     title: "",
     artist: "",
     album: "",
-    duration: "0",
   });
 
   const [files, setFiles] = useState<{
@@ -52,25 +50,57 @@ const AddSongDialog = () => {
   const audioInputRef = useRef<HTMLInputElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
 
+  // Extract metadata when audio file is selected
+  const handleAudioChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setFiles((prev) => ({ ...prev, audio: file }));
+
+    // Auto-fill title and artist from filename if fields are empty
+    if (!newSong.title || !newSong.artist) {
+      const fileName = file.name.replace(/\.[^/.]+$/, ""); // Remove extension
+      
+      // Try to parse "Artist - Title" format
+      const parts = fileName.split(" - ");
+      
+      if (parts.length >= 2 && !newSong.artist) {
+        setNewSong((prev) => ({
+          ...prev,
+          artist: prev.artist || parts[0].trim(),
+          title: prev.title || parts.slice(1).join(" - ").trim(),
+        }));
+      } else if (!newSong.title) {
+        setNewSong((prev) => ({
+          ...prev,
+          title: prev.title || fileName,
+        }));
+      }
+    }
+  };
+
   const handleSubmit = async () => {
     setIsLoading(true);
 
     try {
-      if (!files.audio || !files.image) {
-        return toast.error("Please upload both audio and image files");
+      if (!files.audio) {
+        return toast.error("Please upload an audio file");
       }
 
       const formData = new FormData();
 
       formData.append("title", newSong.title);
       formData.append("artist", newSong.artist);
-      formData.append("duration", newSong.duration);
       if (newSong.album && newSong.album !== "none") {
         formData.append("albumId", newSong.album);
       }
 
       formData.append("audioFile", files.audio);
-      formData.append("imageFile", files.image);
+      
+      // Only append image if provided
+      if (files.image) {
+        formData.append("imageFile", files.image);
+      }
 
       await axiosInstance.post("/admin/songs", formData, {
         headers: {
@@ -82,13 +112,14 @@ const AddSongDialog = () => {
         title: "",
         artist: "",
         album: "",
-        duration: "0",
       });
 
       setFiles({
         audio: null,
         image: null,
       });
+      
+      setSongDialogOpen(false);
       toast.success("Song added successfully");
     } catch (error: any) {
       toast.error("Failed to add song: " + error.message);
@@ -120,9 +151,7 @@ const AddSongDialog = () => {
             accept="audio/*"
             ref={audioInputRef}
             hidden
-            onChange={(e) =>
-              setFiles((prev) => ({ ...prev, audio: e.target.files![0] }))
-            }
+            onChange={handleAudioChange}
           />
 
           <input
@@ -135,9 +164,35 @@ const AddSongDialog = () => {
             }
           />
 
-          {/* image upload area */}
+          {/* Audio upload - moved to top since it's required */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium">
+              Audio File <span className="text-red-500">*</span>
+            </label>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                onClick={() => audioInputRef.current?.click()}
+                className="w-full"
+              >
+                {files.audio ? (
+                  <span className="flex items-center gap-2">
+                    <Upload className="h-4 w-4 text-emerald-500" />
+                    {files.audio.name.slice(0, 30)}...
+                  </span>
+                ) : (
+                  "Choose Audio File"
+                )}
+              </Button>
+            </div>
+            <p className="text-xs text-zinc-500">
+              Metadata will be extracted automatically
+            </p>
+          </div>
+
+          {/* Image upload area - now optional */}
           <div
-            className="flex items-center justify-center p-6 border-2 border-dashed border-zinc-700 rounded-lg cursor-pointer"
+            className="flex items-center justify-center p-6 border-2 border-dashed border-zinc-700 rounded-lg cursor-pointer hover:border-zinc-600 transition-colors"
             onClick={() => imageInputRef.current?.click()}
           >
             <div className="text-center">
@@ -156,7 +211,10 @@ const AddSongDialog = () => {
                     <Upload className="h-6 w-6 text-zinc-400" />
                   </div>
                   <div className="text-sm text-zinc-400 mb-2">
-                    Upload artwork
+                    Upload artwork (optional)
+                  </div>
+                  <div className="text-xs text-zinc-500 mb-2">
+                    Cover will be extracted from audio if not provided
                   </div>
                   <Button variant="outline" size="sm" className="text-xs">
                     Choose File
@@ -166,23 +224,7 @@ const AddSongDialog = () => {
             </div>
           </div>
 
-          {/* Audio upload */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Audio File</label>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                onClick={() => audioInputRef.current?.click()}
-                className="w-full"
-              >
-                {files.audio
-                  ? files.audio.name.slice(0, 20)
-                  : "Choose Audio File"}
-              </Button>
-            </div>
-          </div>
-
-          {/* other fields */}
+          {/* Other fields */}
           <div className="space-y-2">
             <label className="text-sm font-medium">Title</label>
             <Input
@@ -191,6 +233,7 @@ const AddSongDialog = () => {
                 setNewSong({ ...newSong, title: e.target.value })
               }
               className="bg-zinc-800 border-zinc-700"
+              placeholder="Will be auto-filled from metadata"
             />
           </div>
 
@@ -202,19 +245,7 @@ const AddSongDialog = () => {
                 setNewSong({ ...newSong, artist: e.target.value })
               }
               className="bg-zinc-800 border-zinc-700"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Duration (seconds)</label>
-            <Input
-              type="number"
-              min="0"
-              value={newSong.duration}
-              onChange={(e) =>
-                setNewSong({ ...newSong, duration: e.target.value || "0" })
-              }
-              className="bg-zinc-800 border-zinc-700"
+              placeholder="Will be auto-filled from metadata"
             />
           </div>
 
@@ -249,7 +280,11 @@ const AddSongDialog = () => {
           >
             Cancel
           </Button>
-          <Button onClick={handleSubmit} disabled={isLoading}>
+          <Button 
+            onClick={handleSubmit} 
+            disabled={isLoading || !files.audio}
+            className="bg-emerald-500 hover:bg-emerald-600"
+          >
             {isLoading ? "Uploading..." : "Add Song"}
           </Button>
         </DialogFooter>
@@ -257,4 +292,5 @@ const AddSongDialog = () => {
     </Dialog>
   );
 };
+
 export default AddSongDialog;
