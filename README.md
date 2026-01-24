@@ -23,7 +23,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
     - `TopBar` with navigation, `UserButton` (Clerk), and dynamic admin dashboard access.
     - `Button`, `Card`, `Slider`, and `Avatar` components in the `ui` directory.
     - **New:** `MainLayout` using `react-resizable-panels` for a responsive, Spotify-like interface with resizable sidebars.
-    - **New:** `FriendsActivity` sidebar component displaying user presence.
+    - **New:** `FriendsActivity` sidebar component displaying user presence and real-time listening activity.
     - **New:** `PlaybackControls` footer component with volume/seek sliders, play/pause, and track navigation.
     - **New:** `AlbumPage` for viewing album details, songs, and metadata with integrated playback controls.
     - **New:** `AudioPlayer` component for synchronized HTML5 audio playback.
@@ -31,6 +31,10 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 - **Music Playback System:** 
     - Global state management for playback using `usePlayerStore` (Zustand).
     - Features include play/pause, next/previous track, volume control, seek functionality, and autoplay.
+- **Real-time Chat & Friends Activity:**
+	- Integrated `socket.io` for real-time communication between clients and the server.
+	- The `FriendsActivity` sidebar now shows users' online status and what song they are currently listening to.
+	- A new `ChatPage` allows for real-time messaging between users.
 - **File Upload System:** Integration with `express-fileupload` for handling audio and image uploads.
 - **Cloudinary Integration:** Media hosting for song audio files and album artwork.
 - **Admin Functionality:** 
@@ -46,7 +50,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 
 - [x] Full Music Playback & Streaming
 - [x] Admin Dashboard UI for Content Management
-- [ ] Real-time Socket.io events (currently stubbed)
+- [x] Real-time Socket.io events for chat and user activity
 - [x] User Playlists & Likes (Backend routes created)
 - [ ] Search and Filtering
 
@@ -80,6 +84,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 ### Users
 
 - `GET /api/users` - Get all users except current user (Authenticated)
+- `GET /api/users/messages/:userId` - Get chat messages between two users (Authenticated).
 
 ### Playlists
 
@@ -106,7 +111,7 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 ### Client-Side Routing
 
 - `/` - `HomePage` wrapped in `MainLayout`.
-- `/chat` - `ChatPage` wrapped in `MainLayout` (placeholder).
+- `/chat` - `ChatPage` for real-time messaging, wrapped in `MainLayout`.
 - `/albums/:albumId` - `AlbumPage` wrapped in `MainLayout`.
 - `/sso-callback` - Clerk OAuth redirect handler.
 - `/auth-callback` - `AuthCallBackPage` for token extraction and user synchronization.
@@ -115,7 +120,11 @@ The project is currently in the **Initial Setup / Skeleton** phase.
 ### Key Components
 
 - **MainLayout:** The core application wrapper providing the resizable 3-pane layout (Sidebar, Content, Friends).
-- **FriendsActivity:** Displays a list of users/friends and their current listening status.
+- **FriendsActivity:** Displays a list of users/friends and their real-time listening status.
+- **ChatPage Components:**
+    - `UsersList`: Displays a list of users to chat with.
+	- `ChatHeader`: Displays information about the selected user.
+	- `MessageInput`: The input field for sending messages.
 - **TopBar:** Navigation bar with admin link (currently hardcoded to not show), sign in/out buttons.
 - **AudioPlayer:** Handles synchronized HTML5 audio playback and state updates.
 - **SignInOAuthButton:** Google OAuth integration with Clerk.
