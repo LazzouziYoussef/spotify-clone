@@ -189,4 +189,4 @@ This project was inspired by the comprehensive tutorial: [Advanced Spotify Clone
 
 ## License
 
-ISC
+MIT
