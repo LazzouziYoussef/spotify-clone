@@ -100,15 +100,12 @@ A full-stack Spotify Clone application built with the MERN stack (MongoDB, Expre
 
 - **MainLayout:** The core application wrapper providing the resizable 3-pane layout (Sidebar, Content, Friends).
 - **FriendsActivity:** Displays a list of users/friends and their real-time listening status.
-- **ChatPage Components:**
-    - `UsersList`: Displays a list of users to chat with.
-	- `ChatHeader`: Displays information about the selected user.
-	- `MessageInput`: The input field for sending messages.
+- **ChatPage Components:** Enables chat in realtime using Socket.io
 - **TopBar:** Navigation bar with admin link (currently hardcoded to not show), sign in/out buttons.
 - **AudioPlayer:** Handles synchronized HTML5 audio playback and state updates.
 - **SignInOAuthButton:** Google OAuth integration with Clerk.
 - **authProvider:** A component that wraps the application and sets the authorization header for axios requests.
-- **Axios Instance:** Pre-configured HTTP client with baseURL (`http://localhost:8080/api`).
+- **Axios Instance:** Pre-configured HTTP client.
 - **UI System:** Built with Radix UI primitives and Tailwind CSS (`Button`, `Card`, `Resizable`, `ScrollArea`).
 
 ## Project Structure
@@ -125,9 +122,6 @@ spotify-clone/
 │       └── seeds/
 └── frontend/
     ├── public/
-    │   ├── albums/
-    │   ├── cover-images/
-    │   └── songs/
     └── src/
         ├── components/
         ├── layout/
